@@ -1,6 +1,6 @@
 import numpy as np
 import math
-
+import pandas as pd
 entrada = {
     "numero_coletores": 33,
     "numero_repeticoes": 5,
@@ -13,8 +13,6 @@ entrada = {
 valorInicial = [3, 4, 19, 33, 5]
 valorMedio = [9, 1 , 10, 30, 13]
 valorFim = [2, 3, 500, 20, 15]
-
-import pandas as pd
 
 numero_coletores = entrada['numero_coletores']
 numero_repeticoes = entrada['numero_repeticoes']
@@ -76,9 +74,14 @@ def interpolate_table(table):
     return new_table
 
 def calcula_total(table, numero_passadas):
-    colnames = table.columns.values[0:len(table.columns)-2]
-    for linha in range(len(table.index)):
-        table['Total'].values[linha] = sum(table[colnames].values[linha]) / numero_passadas
+    colnames = table.columns[:-2]  # Selecionar todas as colunas, exceto as duas últimas
+    for linha in range(len(table)):  # Iterar sobre as linhas do DataFrame
+        row_values = table.loc[linha, colnames].values  # Valores da linha, exceto as duas últimas colunas
+        valid_values = [value for value in row_values if not pd.isna(value)]  # Filtrar valores não NaN
+        if valid_values:  # Verificar se há valores válidos para calcular a média
+            table.loc[linha, 'Total'] = sum(valid_values) / numero_passadas
+        else:
+            table.loc[linha, 'Total'] = 0  # Definir como 0 se não houver valores válidos
     return table
 
 def calcula_media(table):

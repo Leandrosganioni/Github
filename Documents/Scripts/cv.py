@@ -1,10 +1,8 @@
-from tabela import create_rownames, create_named_table, table_mean
-from tabela import numero_coletores, distancia_coletores
+from tabela import create_rownames, create_named_table, table_mean, numero_coletores, distancia_coletores
 import pandas as pd
 import numpy as np
 
 file_adulanco = 'c:\\Users\\usuario\\Documents\\Scripts\\Teste\\tabela_adulanco.xlsx'
-
 file_adulanco_xlsx = 'tabela_adulanco.xlsx'
 
 def create_rownames(numero_coletores):
