@@ -1,1 +1,0 @@
-print("Olá, GitLab! Meu primeiro commit teste para o adulanço! ")
